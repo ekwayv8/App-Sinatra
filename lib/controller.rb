@@ -14,7 +14,6 @@ class ApplicationController < Sinatra::Base
 
 	#Ces lignes permettent de récupérer le nom et le contenu publié par notre "gossip man" ou "gossip girl" et de les stocker dans une BDD	
 	post '/gossips/new/' do
-		puts "Ce programme permet de stocker des infos dans ma BDD"
 		Gossip.new(params["gossip_author"],params["gossip_content"]).save
 		redirect '/'
 	end
@@ -23,5 +22,8 @@ class ApplicationController < Sinatra::Base
 		erb :show, locals: {gossips: Gossip.find(params['id'].to_i)} 
 	end
 
+	get '/gossips/:id/' do
+		erb :edit, locals: {gossips: Gossip.find(params['id'].to_i)} 
+	end
 end
 

@@ -4,17 +4,18 @@
 	<title>The Gossip Project</title>
 </head>
 <body>
-	<h1> Bienvenu cher visiteur! La liste des potins sera très bientôt disponible</h1>
+	<h1> Bienvenue cher visiteur!</h1>
+
+	<h3>Voici la liste des gossips disponibles à ce jour</h3>
 	
-	<% gossips.each_with_index do |gossip,i| %>
+	<% gossips.each_with_index do |gossip,id| %>
         <p>
           <%= gossip.author %><br/>
-          <%= gossip.content %>
+          <a href="/gossips/<%= id.to_s %> /"><%= gossip.content %></a> 
         </p>
       <% end %>
 	
-	<h2><a href="/gossips/new/">Aller créer un nouveau potin. </a> </h2>
-
+	<h3><a href="/gossips/new/"> >>> Par ici pour créer un nouveau potin. </a> </h3>
 </body>
 </html>
 
