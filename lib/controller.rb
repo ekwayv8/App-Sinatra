@@ -5,33 +5,23 @@ require 'csv'
 class ApplicationController < Sinatra::Base
 	get '/' do
 	#Permet à Sinatra de comprendre qu'il doit aller choper le fichier index qui se trouve dans views
-	erb :index
+	erb :index, locals: {gossips: Gossip.all}
 	end
 
 	get	'/gossips/new/' do
 	erb	:new_gossip
 	end
 
+	#Ces lignes permettent de récupérer le nom et le contenu publié par notre "gossip man" ou "gossip girl" et de les stocker dans une BDD	
 	post '/gossips/new/' do
-	  puts "Salut, je suis dans le serveur"
-	  puts "Ceci est le contenu du hash params : #{params}"
-	  puts "Trop bien ! Et ceci est ce que l'utilisateur a passé dans le champ gossip_author : #{params["gossip_author"]}"
-	  puts "De la bombe, et du coup ça, ça doit être ce que l'utilisateur a passé dans le champ gossip_content : #{params["gossip_content"]}"
-	  puts "Ça déchire sa mémé, bon allez je m'en vais du serveur, ciao les BGs !"
+		puts "Ce programme permet de stocker des infos dans ma BDD"
+		Gossip.new(params["gossip_author"],params["gossip_content"]).save
+		redirect '/'
 	end
-
-
-
-	#Désormais en cliquant sur le bouton du formulaire je serai redirigé vers une page blanche
-	#post '/gossips/new/' do
-	#	puts "Ce programme ne fait rien pour le moment, on va donc afficher un message dans le terminal"
-	#	Gossip.new("super_auteur","super gossip").save
-	#end
-
-	#post '/gossips/new/' do
-	#	Gossip.new(les_entrées_du_gossip).save
-	#end
-
+	#Permet de faire appel à la page show qui renvoit à l'aide d'une url dynamique le contenu d'un potin spécifique
+	get '/gossips/:id/' do
+		erb :show, locals: {gossips: Gossip.find(params['id'].to_i)} 
+	end
 
 end
 

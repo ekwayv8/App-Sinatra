@@ -5,8 +5,16 @@
 </head>
 <body>
 	<h1> Bienvenu cher visiteur! La liste des potins sera très bientôt disponible</h1>
+	
+	<% gossips.each_with_index do |gossip,i| %>
+        <p>
+          <%= gossip.author %><br/>
+          <%= gossip.content %>
+        </p>
+      <% end %>
+	
+	<h2><a href="/gossips/new/">Aller créer un nouveau potin. </a> </h2>
 
-		<a href="/gossips/new/">Aller créer un nouveau potin. </a>
 </body>
 </html>
 
